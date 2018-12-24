@@ -1,3 +1,4 @@
-The folder should contain two files
+The folder should contain two files/subfolders and a README 
 
-source code to reproduce model1 & model2 result for Kaggle
+source code for model1 & model2
+README to train your model and reproduce the submission file
