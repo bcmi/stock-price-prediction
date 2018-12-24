@@ -3,7 +3,7 @@ Fall 18' Class Project for CS410/EI339 Artificial Intelligence
 
 Code Review for Kaggle Competition https://www.kaggle.com/c/cs410ei339-fall18-stock-price-prediction
 
-Code Review is <font color=red>required</font> to get your Kaggle grade
+Code Review is <font color=red> required </font> to get your Kaggle points
 
 ## How to submit your code?
 ##### 1. Fork this repository. 
