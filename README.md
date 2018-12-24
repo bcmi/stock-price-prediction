@@ -1,4 +1,4 @@
 # StockPricePrediction
-Fall 18' Class Project for AI Class
+Fall 18' Class Project for CS410/EI339 Artificial Intelligence
 
-Code for Kaggle Competition https://www.kaggle.com/c/cs410ei339-fall18-stock-price-prediction
+Code Review for Kaggle Competition https://www.kaggle.com/c/cs410ei339-fall18-stock-price-prediction
