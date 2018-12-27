@@ -129,18 +129,12 @@ def build_model2():
 
 params = {
 	'task': 'train',
-	'boosting_type': 'gbdt',
 	'objective': 'regression',
 	'early_stopping_rounds':200,
 	'n_estimators':20000,
-	'metric': 'mae',
+	'metric': 'mse',
 	'num_leaves': 31,
-	'learning_rate': 0.05,
-	'feature_fraction': 0.9,
-	'bagging_fraction': 0.8,
-	'bagging_freq': 5,
-	'lambda_l1': 10,
-	'lambda_l2': 10
+	'learning_rate': 0.01,
 }
 			
 if __name__ == '__main__':
