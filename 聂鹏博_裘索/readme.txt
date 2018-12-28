@@ -1,2 +1,0 @@
-model1: mainly using xgbregressor, can get score 0.00148. First run "python Datatransform.py", then run "python xgb.py".
-model2: mainly using lstm, usually can get score 0.00149 or 0.00150, sometimes it can get a 0.00148 score. Just run "python lstm.py"
