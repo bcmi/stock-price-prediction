@@ -6,4 +6,4 @@ We use 'LastPrice', 'Volume', 'BidPrice', 'BidVolume', 'AskPrice', 'AskVolume' a
 
 The shape of input is (9, 9), because after taking row difference, there are 9 rows left, and we have 9 features. Flatten this (9, 9) matrix to (81,) scaler, use it as the XGBRegrssor input.
 
-Run XGB_GridsearchCV.py many times and take the average of all Prediction.csv as the final submission. (We added randomness during the training process, so each training result will be slightly different.)
+2. Run XGB_GridsearchCV.py many times and take the average of all Prediction.csv as the final submission. (We added randomness during the training process, so each training result will be slightly different.)
