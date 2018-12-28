@@ -23,4 +23,4 @@ Team Member: *Zhi-jun Liu*, *Meng-qi Cao*
 
 ## Quick Start
 
-Run the jupyter notebook provided from head to tail should be good enough.
+Put all the csv files in the same directory of the notebook. Then run the jupyter notebook provided from head to tail should be good enough.
