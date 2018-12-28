@@ -1,3 +1,8 @@
+Multivariate time sequence prediction using Generative Adversarial Network.
+This is a rough implementation of this paper: https://www.hindawi.com/journals/mpe/2018/4907423/.
+
+How to use:
+
 1. Run GAN_datapreprocessing.py
 
 2. Run GAN.py
