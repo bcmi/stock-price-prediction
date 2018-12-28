@@ -3,6 +3,8 @@ This is a rough implementation of this paper: https://www.hindawi.com/journals/m
 
 How to use:
 
+0. Copy the csv files in dataset to the current folder.
+
 1. Run GAN_datapreprocessing.py
 
 2. Run GAN.py
