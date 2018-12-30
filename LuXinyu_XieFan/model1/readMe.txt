@@ -5,4 +5,4 @@ structure of files:
 preprocessing of the initial data
 
 2.model.py:
-training and predicting(¨need output of process.py)
+training and predicting(need output of process.py)
