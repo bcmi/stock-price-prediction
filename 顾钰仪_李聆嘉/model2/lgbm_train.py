@@ -14,7 +14,7 @@ params = {
 
 def train():
     # Load file
-    file = pd.read_csv('../dataset/train_data.csv')
+    file = pd.read_csv('train_data.csv')
     data = file[['MidPrice', 'LastPrice', 'BidPrice1', 'BidVolume1', 'AskPrice1', 'AskVolume1']]
     labels = file[['MidPrice']]
 
