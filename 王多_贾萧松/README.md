@@ -1,10 +1,12 @@
-﻿本组Public Board上的最好成绩为0.00131 提交的为0.00131和0.00132的两组，因为Stack的模型有随机性，所以我们提交了两组由Stack产生的结果
+代码建议配合报告一起查看 (2019.1.1上传，新年快乐~)
+  
+本组Public Board上的最好成绩为0.00131 提交的为0.00131和0.00132的两组，因为Stack的模型有随机性，所以我们提交了两组由Stack产生的结果
 
 最终Private Board上两组的成绩均是0.00125（Lucky Board Gap~） 仍然比本地cross validation的结果差一些(Bad Local Gap~)
 
 下面是执行流程及代码说明：
 
-1.数据清洗 python process_raw_data.py
+1.数据清洗 **python process_raw_data.py**
 
 做的事情有：将训练数据按天且按上下午隔开（也就是说数据不会有跨天或跨中午的预测）
 
@@ -14,7 +16,7 @@
 
 得到清洗后的数据train_data_2.csv test_data_2.csv
 
-2.特征工程 python generate_features.py
+2.特征工程 **python generate_features.py**
 
 根据论文：
 
@@ -29,7 +31,7 @@ Using Deep Learning for price prediction by exploiting stationary limit order bo
 得到最终数据train_data_3.csv  test_data_3.csv
 
 3. 训练模型
-python xgboost+lr+stack.py
+**python xgboost+lr+stack.py**
 
 a. GridSearch找出最优Xgboost超参数（已经设置好，已注释）
 
@@ -59,13 +61,10 @@ https://blog.csdn.net/a358463121/article/details/53054686
 
 由于我回归的任务是：求相对前10个点的平均值，后20个时间点的平均值的变化量，所以现在要将预测的变化量加上前10个点的平均值。
 
-流程：
-
-进入out.py将 resfile变量的文件名改为输入文件名xxx.csv，获得输出xxx_out.csv
-
-然后python out.py
-
-删掉1-142case 提交
-
 trick：经过反复观察数据，我们发现11:29:5x(12:xx:xx)的值趋向于稳定不变，因此对于11:29以及12：xx的预测，我们直接输出最后一个时刻的值!
+
+**进入out.py将 resfile变量的文件名改为输入文件名xxx.csv，执行out.py获得输出xxx_out.csv**
+
+**删掉1-142case 提交**
+
 
