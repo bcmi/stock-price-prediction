@@ -6,7 +6,7 @@
 1.数据清洗 python process_raw_data.py
 做的事情有：将训练数据按天且按上下午隔开（也就是说数据不会有跨天或跨中午的预测）
 同时洗去连续的两组完全相同的数据（减少了大量噪声，因为测试数据中观察可以发现，两组完全一样的情况是很少的）+洗去12点的数据
-给train 和 test 增加feature：一周的周几，一天的第几个小时（由于这种离散变量需要One hot编码，所以test数据中12点的那一组，我们令其值为11） + http://www.infosec-wiki.com/?p=69667中提到的特征
+给train 和 test 增加feature：一周的周几，一天的第几个小时（由于这种离散变量需要One hot编码，所以test数据中12点的那一组，我们令其值为11） + http://www.infosec-wiki.com/?p=69667  中提到的特征
 得到清洗后的数据train_data_2.csv test_data_2.csv
 
 2.特征工程 python generate_features.py
@@ -33,7 +33,9 @@ Practical Lessons from Predicting Clicks on Ads at Facebook
 d. Stack是Kaggle比赛中的常见技巧，这里第一层：我采用了36个Xgboost+linear regression 每个给定在一定范围内随机数目的feature以及随机扰动的超参数进行训练 然后第二层使用Linear regression进行回归的得到最终结果
 模型融合具体原理可以参考：
 http://www.dcjingsai.com/common/bbs/topicDetails.html?tid=348
+
 https://www.kaggle.com/c/otto-group-product-classification-challenge/discussion/14335
+
 https://blog.csdn.net/a358463121/article/details/53054686
 
 结果输出在以执行起始时间为名字的文件夹里: xxx.csv
