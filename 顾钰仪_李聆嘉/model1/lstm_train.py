@@ -17,7 +17,7 @@ optimizer = torch.optim.SGD(net.parameters(), lr=0.01, momentum=0.8)
 loss_func = torch.nn.MSELoss()
 # loss_func = torch.nn.L1Loss(reduce=False, size_average=False)
 
-file_train = open('../dataset/train_data.csv','r')
+file_train = open('train_data.csv','r')
 line = file_train.readline()
 
 for t in range(train_num):
@@ -142,5 +142,5 @@ for t in range(train_num):
     #print('y: ',y.data.numpy(),' pre: ',prediction.data.numpy())
 
 file_train.close()
-torch.save(net.state_dict(),'data_lstm.pkl')
+torch.save(net.state_dict(),'lstm.pkl')
 print('train complete: ',train_num)
