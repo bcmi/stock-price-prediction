@@ -1,0 +1,2 @@
+Document model1 contains a model based on LSTM, which has one layer of LSTM. (with preprocessing of train data)
+Document model2 contains another model based on LSTM, which has two layers of LSTM.
