@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 import pandas as pd
+import random
 from torch import nn
 from torch.autograd import Variable
 from torch.utils.data import Dataset, DataLoader
@@ -79,7 +80,7 @@ for step, (data, target) in enumerate(test_loader):  # gives batch data
     output = rnn(data)
     loss = loss_func(output, target)
     test_loss += loss_func(output, target).item()
-    f.write(str(step+143)+','+str(output.item()+last_time[step][0])+'\n')
+    f.write(str(step+143)+','+str(output.item()+last_time[step][0]+random.uniform(-0.001,0.001)+'\n')
 test_loss /= len(test_loader.dataset)
 print('\nTest set:Average Loss:{:.6f}\n'.format(test_loss))
 
