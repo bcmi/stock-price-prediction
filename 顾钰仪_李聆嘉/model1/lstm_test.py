@@ -10,12 +10,12 @@ input_size = 6
 hidden_size = 16
 
 net = LSTM.LSTM(input_size, hidden_size)
-net.load_state_dict(torch.load('data_lstm.pkl'))
+net.load_state_dict(torch.load('lstm.pkl'))
 
-file_test = open('../dataset/test_data.csv', 'r')
+file_test = open('test_data.csv', 'r')
 line = file_test.readline()
 
-file_out = open('result_lstm.csv', 'w')
+file_out = open('result.csv', 'w')
 file_out.write('caseid,midprice\n')
 
 case = 1
