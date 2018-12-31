@@ -5,7 +5,7 @@ import csv
 
 def test():
     # Load file
-    file = pd.read_csv('../dataset/test_data.csv')
+    file = pd.read_csv('test_data.csv')
     data = file[['MidPrice', 'LastPrice', 'BidPrice1', 'BidVolume1', 'AskPrice1', 'AskVolume1']]
 
     # Add the new feature
