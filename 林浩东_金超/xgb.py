@@ -16,12 +16,12 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 def get_data(path):
-    #鑾峰彇璁粌鏁版嵁
+    #获取训练数据
     data = numpy.loadtxt(path,delimiter= ',' ,skiprows=1,usecols=(3,4,5,6,7,8,9))
     return data
 
 def create_model_data(train_data):
-    #璁粌鏁版嵁鍑嗗
+    #训练数据准备
     dataX = numpy.copy(train_data[:,:])
     dataY = numpy.copy(train_data[:,0:1])
     date = numpy.copy(train_data[:,2])
@@ -50,7 +50,7 @@ def create_model_data(train_data):
             coverd.append(i+1)
     coverd.append(len(train_data))
     print(len(coverd))
-    #娓呮礂
+    #清洗
     trainX = []
     trainY = []
     for i in range(len(coverd)-1):
@@ -98,7 +98,7 @@ def predict(model,testX,testY):
 
 
 def output_result(result,road):
-    #result涓洪娴嬪緱鍒扮殑缁撴灉
+    #result为预测得到的结果
     stu = ['caseid','midprice']
     out = open(road,'w', newline='')
     csv_write = csv.writer(out,dialect='excel')
@@ -114,30 +114,24 @@ def get_total_data():
     create_pred_data(test_data)
 
 def final_xgb(times):
-    #鍒涘缓绁炵粡缃戠粶
+    #创建神经网络
     trainX = numpy.load("train_X.npy")
     trainY = numpy.load("train_Y.npy")
     testX = numpy.load("test_X.npy")
     testY = numpy.load("test_Y.npy")
 
     #model = xgb.XGBRegressor()
-    model = xgb.XGBRegressor(silent=False,max_depth=6, learning_rate=0.1, n_estimators=160,subsample =0.5)
+    model = xgb.XGBRegressor(silent=False, silent=False, reg_lambda= 1, eta =0.1, n_estimators=150,subsample =0.6 , max_depth= 6)
     model.fit(trainX,trainY)
     
     pred = model.predict(testX)
-    data = {'caseid':[i+1 for i in range(1000)], 'midprice':[testY[i,0]+pred[i] for i in range(1000)]}
-    df = pd.DataFrame(data)
-    df = df[142:]
-    df.to_csv("XGB{}_cont.csv".format(times), index = False)
+    result = {'caseid':[i+1 for i in range(142,1000)], 'midprice':[testY[i,0]+pred[i] for i in range(142,1000)]}
+    fl = pd.DataFrame(result)
+    fl.to_csv("XGB{}_cont.csv".format(times), index = False)
     return model
 
 def main():
-    #get_total_data()
-    #final_xgb(11)
-    trainX = numpy.load("train_X.npy")
-    trainY = numpy.load("train_Y.npy")
-    testX = numpy.load("test_X.npy")
-    testY = numpy.load("test_Y.npy")
-    print(testY.shape)
-
+    get_total_data()
+    final_xgb(11)
+    
 main()

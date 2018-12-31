@@ -11,20 +11,20 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 def normalization0(train_data):
-    #å¯¹æ•°æ®è¿›è¡Œæ­£åˆ™åŒ–å¤„ç†(-1,1)
+    #¶ÔÊı¾İ½øĞĞÕıÔò»¯´¦Àí(-1,1)
     m = numpy.mean(train_data)
     tmin,tmax = train_data.min(),train_data.max()
     return (train_data - m)/(tmax-tmin)
 
 def normalization1(train_data):
-        #å¯¹æ•°æ®è¿›è¡Œæ­£åˆ™åŒ–å¤„ç†(0,1)
+        #¶ÔÊı¾İ½øĞĞÕıÔò»¯´¦Àí(0,1)
         tmin,tmax = train_data.min(),train_data.max()
         return(train_data - tmin)/(tmax - tmin)
 
 def pre_deal(train_data):
-    """"é¢„å¤„ç†ä¸­è¿˜åŒ…æ‹¬æ•°æ®æ¸…æ´—"""
-    #å¯¹è®­ç»ƒæ•°æ®è¿›è¡Œé¢„å¤„ç†
-    #å°†æ•°æ®è½¬åŒ–ä¸ºå¢é‡
+    """"Ô¤´¦ÀíÖĞ»¹°üÀ¨Êı¾İÇåÏ´"""
+    #¶ÔÑµÁ·Êı¾İ½øĞĞÔ¤´¦Àí
+    #½«Êı¾İ×ª»¯ÎªÔöÁ¿
     for i in range(len(train_data)-1,0,-1):
        train_data[i] = train_data[i] - train_data[i-1]
     train_data[0] = train_data[0] - train_data[0]
@@ -32,12 +32,12 @@ def pre_deal(train_data):
     return train_data
 
 def get_data(path):
-    #è·å–è®­ç»ƒæ•°æ®
-    train_data = numpy.loadtxt(path,delimiter= ',' ,skiprows=1,usecols=(3,4,6,7,8,9))
-    return train_data
+    #»ñÈ¡ÑµÁ·Êı¾İ
+    data = numpy.loadtxt(path,delimiter= ',' ,skiprows=1,usecols=(3,4,6,7,8,9))
+    return data
 
 def create_model_data(train_data):
-    #è®­ç»ƒæ•°æ®å‡†å¤‡
+    #ÑµÁ·Êı¾İ×¼±¸
     dataX = train_data[:,1:]
     dataY = train_data[:,0:1]
     dataX = pre_deal(dataX)
@@ -49,11 +49,10 @@ def create_model_data(train_data):
             temp = temp + dataY[10*(i+1)+j] - dataY[10*(i+1)-1]
         datasetY.append(temp/20)
     datasetX = datasetX.reshape(int(len(datasetX)/10),50,1)
-    datasetY = numpy.array(datasetY)
-    train_size = int(len(datasetX)*0.75) 
-    trainX,testX = datasetX[:train_size,:,:],datasetX[train_size:,:,:]
-    trainY,testY = datasetY[:train_size,:],datasetY[train_size:,:]
-    return trainX,trainY,testX,testY
+    datasetX = numpy.array(datasetX)
+    datasetY = numpy.array(datasetY) 
+    numpy.save("trainX.npy",datasetX)
+    numpy.save("trainY.npy",datasetY)
 
 def create_pred_data(test_data):
     dataX = test_data[:,1:]
@@ -64,34 +63,11 @@ def create_pred_data(test_data):
     datasetY = []
     for i in range(int(len(datasetX))):
         datasetY.append(dataY[10*(i+1)-1])
+    datasetX = numpy.array(datasetX)
     datasetY = numpy.array(datasetY)
+    numpy.save("testX.npy",datasetX)
+    numpy.save("testY.npy",datasetY)
     return datasetX,datasetY
-
-def get_model(train_data,lstmFirstLayer,lstmSecondLayer,lo,opt):
-    trainX,trainY,testX,testY = create_model_data(train_data)
-    print("have dealed")
-    #åˆ›å»ºç¥ç»ç½‘ç»œ
-    model = Sequential()
-    model.add(LSTM(lstmFirstLayer, input_shape=(trainX.shape[1], trainX.shape[2]),return_sequences=True))
-    model.add(Dropout(0.2))
-    model.add(LSTM(40,return_sequences=True))
-    model.add(Dropout(0.2))
-    model.add(LSTM(lstmSecondLayer,return_sequences=False))
-    model.add(Dropout(0.2))
-    model.add(Dense(units=1, kernel_regularizer=regularizers.l2(0.001),activation='tanh'))
-    #rmsprop = keras.optimizers.RMSprop(lr=0.0001)
-    #model.compile(loss="mse", optimizer=rmsprop)
-    #model.compile(loss="mse", optimizer="adagrad")
-    model.compile(loss=lo, optimizer=opt)
-    early_stopping = EarlyStopping(monitor='val_loss', patience=5)
-    model.fit(trainX,trainY,batch_size=100,epochs=100,validation_data=(testX,testY),verbose=1,shuffle=False,callbacks=[early_stopping])
-    #è¿›è¡Œæµ‹è¯•
-    #testScore = model.evaluate(testX, testY,batch_size=365, verbose=1)
-    #print("Model Accuracy: %.2f%%" % (testScore*100))
-    #ä¿å­˜model
-    hyperparams_name=str(lstmFirstLayer)+"-"+str(lstmSecondLayer)
-    model.save(os.path.join('MODEL{}_cont.h5'.format(hyperparams_name)))
-    return model
 
 def predict(model):
     test_data = get_data("test_data.csv")
@@ -102,7 +78,7 @@ def predict(model):
 
 
 def output_result(result,road):
-    #resultä¸ºé¢„æµ‹å¾—åˆ°çš„ç»“æœ
+    #resultÎªÔ¤²âµÃµ½µÄ½á¹û
     stu = ['caseid','midprice']
     out = open(road,'w', newline='')
     csv_write = csv.writer(out,dialect='excel')
@@ -111,21 +87,50 @@ def output_result(result,road):
         temp = [i+1,result[i][0]]
         csv_write.writerow(temp)
 
-def main():
+def get_model(lstmFirstLayer,lstmSecondLayer,lstmThirdLayer,lo,opt):
+    trainX = numpy.load("trainX.npy")
+    trainY = numpy.load("trainY.npy")
+    testX = numpy.load("testX.npy")
+    testY = numpy.load("testY.npy")
+    print("have dealed")
+    #´´½¨Éñ¾­ÍøÂç
+    model = Sequential()
+    model.add(LSTM(lstmFirstLayer, input_shape=(trainX.shape[1], trainX.shape[2]),return_sequences=True))
+    model.add(Dropout(0.3))
+    model.add(LSTM(lstmSecondLayer,return_sequences=True))
+    model.add(Dropout(0.3))
+    model.add(LSTM(lstmThirdLayer,return_sequences=False))
+    model.add(Dropout(0.3))
+    '''model.add(Dense(60,activation="tanh", kernel_regularizer=regularizers.l2(0.001)))
+    model.add(Dropout(0.2))'''
+    model.add(Dense(units=1,activation='tanh'))
+    #rmsprop = keras.optimizers.RMSprop(lr=0.0001)
+    #model.compile(loss="mse", optimizer=rmsprop)
+    #model.compile(loss="mse", optimizer="adagrad")
+    model.compile(loss=lo, optimizer=opt)
+    early_stopping = EarlyStopping(monitor='val_loss', patience=5)
+    model.fit(trainX,trainY,batch_size=100,epochs=100,validation_split=0.25,verbose=1,shuffle=False,callbacks=[early_stopping])
+    #½øĞĞ²âÊÔ
+    #testScore = model.evaluate(testX, testY,batch_size=365, verbose=1)
+    #print("Model Accuracy: %.2f%%" % (testScore*100))
+    #±£´æmodel
+    """hyperparams_name=str(lstmFirstLayer)+"-"+str(lstmSecondLayer)
+    model.save(os.path.join('MODEL{}_cont.h5'.format(hyperparams_name)))"""
+    return model
 
-    lstmFirstLayer,lstmSecondLayer = 40,40
+def create_total_data():
+    create_model_data(get_data("train_data.csv"))
+    create_pred_data(get_data("test_data.csv"))
+
+def main():
+    create_total_data()
+    lstmFirstLayer,lstmSecondLayer,lstmThirdLayer = 30,30,30
     loss,opt = "mae","rmsprop"
     hyperparams_name=str(lstmFirstLayer)+"-"+str(lstmSecondLayer)+"-"+loss + "-" + opt
     road = os.path.join('MODEL{}_cont.h5'.format(hyperparams_name))
-    print(road)
-    if (os.path.exists(road)):
-        model = keras.models.load_model(road)
-    else:
-        train_data = get_data("train_data.csv")
-        model = get_model(train_data,lstmFirstLayer,lstmSecondLayer,loss,opt)
-        model.save(os.path.join(road))
+    train_data = get_data("train_data.csv")
+    model = get_model(lstmFirstLayer,lstmSecondLayer,lstmThirdLayer,loss,opt)
     result = predict(model)
     r = os.path.join('RESULT{}_cont.csv'.format(hyperparams_name))
     output_result(result,r)
-
 main()
