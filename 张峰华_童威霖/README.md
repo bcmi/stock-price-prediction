@@ -1,0 +1,1 @@
+model:using lstm,getting score 0.00152. Just run LSTM.py is ok.
