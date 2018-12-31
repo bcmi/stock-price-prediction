@@ -12,6 +12,7 @@
 2.特征工程 python generate_features.py
 根据论文：
 Modeling high-frequency limit order book dynamics with support vector machines
+
 Using Deep Learning for price prediction by exploiting stationary limit order book features
 增加特征
 
