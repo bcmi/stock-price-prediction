@@ -6,7 +6,9 @@
 
 - keras == 2.1.*
 
-
-### Guide
+### Guide for LSTM model
 - run fit.py
 - run predict.py
+
+### Guide for XGBoost
+- run fit.py
