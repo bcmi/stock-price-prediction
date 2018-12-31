@@ -2,7 +2,7 @@
 
 (We do not have `model1` and `model2` folders simply becuase we have implemented all the models in one file `./train.py`. Continue reading to know more.)
 
-Hello to anyone who wishes to review our piece of codes! I'd like to say something here to help you with these confusing codes (my fault I have to say). For a detailed description of our model and data processing, refer to [this report](https://www.overleaf.com/read/bhmbjmyrxjfh).
+Hello to everyone who wishes to review our piece of codes! I'd like to say something here to help you with these confusing codes (my fault I have to say). For a detailed description of our model and data processing, refer to [this report](https://www.overleaf.com/read/bhmbjmyrxjfh).
 
 To run our project:
 
@@ -65,7 +65,8 @@ Now more about the codes, this project mainly contains two source files:
 
 * `util/data_util.py` (a thousand lines), all our tricks in processing data, with complete and friendly comments. Here is my suggestion for your review of this file:
 
-  * This file contains one thing, a class named `OrderBook`. To get started, you only need to notice one function: `__data_process_procedure_based_on_day_normalization` (Its name is to long so I'll call it `__procedure` in abbreviate);
+  * This file contains one thing, a class named `OrderBook`. To get started, you only need to notice one function: `__data_process_procedure_based_on_day_normalization` (Its name is so long that I'll call it `__procedure` in abbreviate);
   * Follow the funtion `__procedure` to know our procedure in processing data; also, refer to the picture below to get a better understanding.
+  ![](https://github.com/shawn233/stock-price-prediction/blob/master/%E7%8E%8B%E6%AC%A3%E5%AE%87_%E9%97%AB%E7%92%90/util/data-processing-procedure.jpg)
 
-* You may get curious about the other two files in the `util` folder, namely, `util/my_tf_util.py`, and `util/plot_util.py`. You may read them if you are really interested, but I do not suggest that because they do not help with the prediction.
+* You may also get curious about the other two files in the `util` folder, namely, `util/my_tf_util.py`, and `util/plot_util.py`. You may read them if you are really interested, but I do not suggest that because they do not help with the prediction.
