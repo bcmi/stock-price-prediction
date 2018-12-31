@@ -1,0 +1,15 @@
+{
+	"data": {
+		"filename": "test_data//minidata",
+		"columns": [
+			"MidPrice",
+			"BidPrice1",
+			"BidVolume1",
+			"AskVolume1"
+		],
+		"sequence_length": 11,
+		"train_test_split": 0,
+		"normalise": true
+	}
+
+}
