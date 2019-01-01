@@ -9,7 +9,7 @@
 |Pickle| 0.7.4|
 
 ## Testing Results
-|Model|Private Board|Public Board|
+|Model|Public Board|Private Board|
 |:-:|:-:|:-:|
 |XGBoost|0.00148|0.00139|
 |LightGBM|0.00149|0.00141|
