@@ -28,7 +28,8 @@ To run our project:
     ```
 
     You can modify these hyper-parameters, especially `batch_size` and `n_epochs` to tune the model. The picture below is some of my experiments on the tuning of hyper-paramters:
-    ![Hyper-parameters](https://github.com/shawn233/stock-price-prediction/blob/master/%E7%8E%8B%E6%AC%A3%E5%AE%87_%E9%97%AB%E7%92%90/util/hyperparameters.jpg)
+    ![](https://github.com/shawn233/stock-price-prediction/blob/master/%E7%8E%8B%E6%AC%A3%E5%AE%87_%E9%97%AB%E7%92%90/util/hyperparameters1.jpg)
+    ![](https://github.com/shawn233/stock-price-prediction/blob/master/%E7%8E%8B%E6%AC%A3%E5%AE%87_%E9%97%AB%E7%92%90/util/hyperparameters2.jpg)
 
   * **Model**: In file `./train.py`, about line 274, in function `train`:
 
